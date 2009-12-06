@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+    "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<bean id="afghanistanScraper" class="nz.gen.wellington.ukcasualties.screenscrapers.AfghanistanScraper">
+		<constructor-arg ref="httpFetcher" />
+	</bean>
+	
+	<bean id="httpFetcher" class="nz.gen.wellington.ukcasualties.utils.CachingHttpFetcher" />
+	
+	<bean id="casualtiesDAO" class="nz.gen.wellington.ukcasualties.screenscrapers.CasualtiesDAO">
+		<constructor-arg ref="afghanistanScraper" />
+	</bean>
+		
+	<bean id="afghanistanController" class="nz.gen.wellington.ukcasualties.servlets.FeedController">		
+		<constructor-arg ref="casualtiesDAO" />			
+	</bean>
+	
+</beans>
